@@ -1,0 +1,25 @@
+{
+  "name": "Maison Spirale | Liqueurs",
+  "short_name": "Maison Spirale",
+  "description": "Une collection 3D de liqueurs et spiritueux en carrousel.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#110d0c",
+  "theme_color": "#110d0c",
+  "icons": [
+    {
+      "src": "/icon-192.jpg",
+      "sizes": "192x192",
+      "type": "image/jpeg",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/icon-512.jpg",
+      "sizes": "512x512",
+      "type": "image/jpeg",
+      "purpose": "any maskable"
+    }
+  ]
+}

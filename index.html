@@ -1,0 +1,140 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Une collection 3D raffinée de liqueurs et spiritueux, présentée en carrousel circulaire."
+    />
+    <meta name="theme-color" content="#110d0c" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-title" content="Maison Spirale" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <link rel="manifest" href="/manifest.webmanifest" />
+    <link rel="icon" href="/favicon.jpeg" />
+    <link rel="apple-touch-icon" href="/favicon.jpeg" />
+    <title>Maison Spirale | Liqueurs</title>
+  </head>
+  <body>
+    <main class="stage" aria-live="polite">
+      <canvas id="scene" aria-label="Carrousel 3D de bouteilles"></canvas>
+
+      <div class="grain" aria-hidden="true"></div>
+      <h1 class="ghost-title" id="ghostTitle">Cointreau</h1>
+
+      <header class="topbar">
+        <div class="brand-block">
+          <span class="brand-mark">Maison Spirale</span>
+          <span class="brand-subtitle">Liqueurs & spiritueux</span>
+        </div>
+        <div class="topbar-actions">
+          <button class="install-button" id="installButton" type="button" hidden>Ajouter</button>
+          <div class="collection-status">
+            <span id="bottleCounter">01</span>
+            <span>20 bouteilles</span>
+          </div>
+        </div>
+      </header>
+
+      <button class="detail-close" id="detailClose" type="button" aria-label="Retour à la collection">
+        Retour
+      </button>
+
+      <section class="story-panel" aria-labelledby="bottleName">
+        <p class="eyebrow" id="bottleFamily">Triple sec</p>
+        <h2 id="bottleName">Cointreau</h2>
+        <p class="story" id="bottleStory">
+          Créé à Angers, Cointreau a fixé l'idée moderne du triple sec :
+          une liqueur limpide où l'orange amère donne une tension presque
+          cristalline aux cocktails.
+        </p>
+      </section>
+
+      <div class="orbit-copy" aria-hidden="true">
+        <span class="orbit-line orbit-line-top" id="orbitWhen">1849, maison fondée à Angers</span>
+        <span class="orbit-line orbit-line-left" id="orbitWhy">Pour capturer l'éclat sec de l'orange</span>
+        <span class="orbit-line orbit-line-right" id="orbitPlace">France, vallée de la Loire</span>
+        <span class="orbit-line orbit-line-bottom" id="orbitRitual">Sidecar, Margarita, glaçon clair</span>
+      </div>
+
+      <section class="detail-panel" aria-label="Détails de dégustation">
+        <div class="detail-column">
+          <article class="detail-card">
+            <p>Goût</p>
+            <span id="detailTaste">Orange amère, zeste confit, tension sèche.</span>
+          </article>
+          <article class="detail-card">
+            <p>Histoire</p>
+            <span id="detailHeritage">Une maison angevine devenue repère du cocktail moderne.</span>
+          </article>
+        </div>
+        <div class="detail-spacer" aria-hidden="true"></div>
+        <div class="detail-column">
+          <article class="detail-card">
+            <p>Fabrication</p>
+            <span id="detailCraft">Écorces d'agrumes, alcool clair et recette précise.</span>
+          </article>
+          <article class="detail-card">
+            <p>Service</p>
+            <span id="detailService">Cocktails courts, glaçon clair, zeste frais.</span>
+          </article>
+        </div>
+      </section>
+
+      <aside class="spec-panel" aria-label="Présentation de la bouteille">
+        <div class="spec-heading">
+          <strong id="specMood">Agrume net, finale sèche</strong>
+        </div>
+        <dl class="spec-grid">
+          <div>
+            <dt>Degré</dt>
+            <dd id="specAbv">env. 40 %</dd>
+          </div>
+          <div>
+            <dt>Origine</dt>
+            <dd id="specOrigin">Angers, France</dd>
+          </div>
+          <div>
+            <dt>Base</dt>
+            <dd id="specBase">Écorces d'orange</dd>
+          </div>
+          <div>
+            <dt>Service</dt>
+            <dd id="specServe">Cocktail court</dd>
+          </div>
+        </dl>
+        <ul class="note-list" id="noteList" aria-label="Notes de dégustation"></ul>
+      </aside>
+
+      <nav class="nav-controls" aria-label="Navigation des bouteilles">
+        <button class="nav-button" id="previousBottle" type="button" aria-label="Bouteille précédente">
+          <span aria-hidden="true">‹</span>
+        </button>
+        <button class="nav-button" id="nextBottle" type="button" aria-label="Bouteille suivante">
+          <span aria-hidden="true">›</span>
+        </button>
+      </nav>
+
+      <div class="bottle-dots" id="bottleDots" aria-label="Sélection des bouteilles"></div>
+
+      <footer class="credit">
+        Modèle 3D :
+        <a href="https://sketchfab.com/3d-models/20-liquor-bottles-4729b1cfa5b74db68924190242f8ac76" target="_blank" rel="noreferrer">
+          Yannick Deharo
+        </a>,
+        <a href="http://creativecommons.org/licenses/by-sa/4.0/" target="_blank" rel="noreferrer">
+          CC BY-SA 4.0
+        </a>
+      </footer>
+
+      <div class="loader" id="loader" role="status">
+        <div class="loader-ring" aria-hidden="true"></div>
+        <p>Préparation de la cave</p>
+        <span id="loadPercent">0%</span>
+      </div>
+    </main>
+
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>
