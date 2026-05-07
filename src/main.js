@@ -1,4 +1,3 @@
-import './styles.css';
 import * as THREE from 'three';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
 
@@ -674,6 +673,629 @@ bottleProfiles.forEach((profile) => {
   Object.assign(profile, researchedProfiles[profile.modelName] ?? {});
 });
 
+const sourceCatalog = {
+  ibaList: { label: 'IBA, liste officielle', url: 'https://iba-world.com/iba-official-cocktail-list/' },
+  margarita: { label: 'IBA, Margarita', url: 'https://iba-world.com/iba-cocktail/margarita/' },
+  paloma: { label: 'IBA, Paloma', url: 'https://iba-world.com/iba-cocktail/paloma/' },
+  sidecar: { label: 'IBA, Sidecar', url: 'https://iba-world.com/iba-cocktail/sidecar/' },
+  whiteLady: { label: 'IBA, White Lady', url: 'https://iba-world.com/iba-cocktail/white-lady/' },
+  daiquiri: { label: 'IBA, Daiquiri', url: 'https://iba-world.com/iba-cocktail/daiquiri/' },
+  mojito: { label: 'IBA, Mojito', url: 'https://iba-world.com/iba-cocktail/mojito/' },
+  cubaLibre: { label: 'IBA, Cuba Libre', url: 'https://iba-world.com/iba-cocktail/cuba-libre/' },
+  espressoMartini: { label: 'IBA, Espresso Martini', url: 'https://iba-world.com/iba-cocktail/espresso-martini/' },
+  blackRussian: { label: 'IBA, Black Russian', url: 'https://iba-world.com/iba-cocktail/black-russian/' },
+  dryMartini: { label: 'IBA, Dry Martini', url: 'https://iba-world.com/iba-cocktail/dry-martini/' },
+  vesper: { label: 'IBA, Vesper', url: 'https://iba-world.com/iba-cocktail/vesper/' },
+  lemonDrop: { label: 'IBA, Lemon Drop Martini', url: 'https://iba-world.com/iba-cocktail/lemon-drop-martini/' },
+  negroni: { label: 'IBA, Negroni', url: 'https://iba-world.com/iba-cocktail/negroni/' },
+  ginFizz: { label: 'IBA, Gin Fizz', url: 'https://iba-world.com/iba-cocktail/gin-fizz/' },
+  beesKnees: { label: "IBA, Bee's Knees", url: 'https://iba-world.com/iba-cocktail/bees-knees/' },
+  bramble: { label: 'IBA, Bramble', url: 'https://iba-world.com/iba-cocktail/bramble/' },
+  irishCoffee: { label: 'IBA, Irish Coffee', url: 'https://iba-world.com/iba-cocktail/irish-coffee/' },
+  whiskeySour: { label: 'IBA, Whiskey Sour', url: 'https://iba-world.com/iba-cocktail/whiskey-sour/' },
+  oldFashioned: { label: 'IBA, Old Fashioned', url: 'https://iba-world.com/iba-cocktail/old-fashioned/' },
+  newYorkSour: { label: 'IBA, New York Sour', url: 'https://iba-world.com/iba-cocktail/new-york-sour/' },
+  sazerac: { label: 'IBA, Sazerac', url: 'https://iba-world.com/iba-cocktail/sazerac/' },
+  rustyNail: { label: 'IBA, Rusty Nail', url: 'https://iba-world.com/iba-cocktail/rusty-nail/' },
+  becherovkaBeton: { label: 'Becherovka, BeTon', url: 'https://www.becherovka.com/en/cocktails/original-beton/' },
+  becherovkaEspresso: { label: 'Becherovka, Espresso BeTon', url: 'https://www.becherovka.com/en/cocktails/espresso-beton/' },
+  baileys: { label: 'Baileys, cocktails', url: 'https://www.baileys.com/en-us/recipes/cocktails' },
+  jamesonGinger: { label: 'Jameson, Ginger & Lime', url: 'https://www.jamesonwhiskey.com/en-US/drinks/jameson-ginger-and-lime' },
+};
+
+const cocktailProfiles = {
+  Cointreau: {
+    intro:
+      "Cointreau aime les verres courts, l'acidité nette et les spiritueux qui ont besoin d'un trait d'orange pour se mettre en place.",
+    pairings: ['citron vert', 'cognac', 'tequila blanco', 'sel fin', 'verre givré'],
+    sources: [sourceCatalog.margarita, sourceCatalog.sidecar, sourceCatalog.whiteLady],
+    ideas: [
+      {
+        name: 'Margarita sèche',
+        style: 'Classique',
+        ingredients: ['tequila', 'Cointreau', 'citron vert', 'demi-bord de sel'],
+        method: 'Secouer très froid, servir en coupe ou sur gros glaçon.',
+      },
+      {
+        name: 'Sidecar clair',
+        style: 'Cognac',
+        ingredients: ['cognac', 'Cointreau', 'citron jaune'],
+        method: 'Secouer, filtrer finement, garder le sucre très discret.',
+      },
+      {
+        name: 'White Lady nerveuse',
+        style: 'Gin',
+        ingredients: ['gin sec', 'Cointreau', 'citron jaune'],
+        method: 'Secouer fort pour obtenir une texture satinée et une finale vive.',
+      },
+    ],
+  },
+  Olmeca: {
+    intro:
+      "La tequila donne de la verticalité : agave, sel, agrumes et bulles. Les meilleurs mélanges restent frais et pas trop sucrés.",
+    pairings: ['pamplemousse rose', 'citron vert', 'sel', 'ananas grillé', 'piment doux'],
+    sources: [sourceCatalog.paloma, sourceCatalog.margarita, sourceCatalog.ibaList],
+    ideas: [
+      {
+        name: 'Paloma saline',
+        style: 'Highball',
+        ingredients: ['tequila', 'pamplemousse pétillant', 'citron vert', 'pincée de sel'],
+        method: 'Construire sur glace et remuer juste assez pour garder les bulles.',
+      },
+      {
+        name: 'Margarita vive',
+        style: 'Secoué',
+        ingredients: ['tequila', 'triple sec', 'citron vert', 'sel fin'],
+        method: 'Secouer court, servir très froid avec un bord salé partiel.',
+      },
+      {
+        name: 'Agave tonic',
+        style: 'Long drink',
+        ingredients: ['tequila', 'tonic sec', 'citron vert', 'trait de sirop d’agave'],
+        method: 'Verser sur glace haute, finir avec un zeste ou une tranche fine.',
+      },
+    ],
+  },
+  Becherovka: {
+    intro:
+      "Becherovka fonctionne comme une amertume épicée : tonic, café, agrumes et glace lui donnent un côté très moderne.",
+    pairings: ['tonic sec', 'citron', 'espresso', 'orange', 'gingembre'],
+    sources: [sourceCatalog.becherovkaBeton, sourceCatalog.becherovkaEspresso, sourceCatalog.ibaList],
+    ideas: [
+      {
+        name: 'BeTon original',
+        style: 'Signature',
+        ingredients: ['Becherovka', 'tonic', 'glace', 'citron'],
+        method: 'Construire dans un verre haut, remuer doucement, garder très frais.',
+      },
+      {
+        name: 'Espresso BeTon',
+        style: 'Amer café',
+        ingredients: ['Becherovka', 'tonic', 'espresso court', 'lime'],
+        method: 'Ajouter l’espresso en dernier pour une couche aromatique sombre.',
+      },
+      {
+        name: 'Sour thermal',
+        style: 'Secoué',
+        ingredients: ['Becherovka', 'citron', 'sirop léger', 'blanc d’œuf optionnel'],
+        method: 'Secouer fort, servir en petit verre pour arrondir les épices.',
+      },
+    ],
+  },
+  Sortilege: {
+    intro:
+      "Sortilège transforme un verre en dessert contrôlé. Le plus important est de l’équilibrer avec café, citron ou amertume.",
+    pairings: ['café filtre', 'citron jaune', 'bitters aromatiques', 'noix de pécan', 'glace large'],
+    sources: [sourceCatalog.oldFashioned, sourceCatalog.whiskeySour, sourceCatalog.ibaList],
+    ideas: [
+      {
+        name: 'Maple Old Fashioned',
+        style: 'Remué',
+        ingredients: ['whiskey', 'Sortilège', 'bitters', 'zeste d’orange'],
+        method: 'Remuer sur glace, servir sur gros glaçon avec une orange exprimée.',
+      },
+      {
+        name: 'Café érable',
+        style: 'Chaud',
+        ingredients: ['café noir', 'Sortilège', 'crème légèrement fouettée'],
+        method: 'Verser dans une tasse chaude et laisser la crème flotter au-dessus.',
+      },
+      {
+        name: 'Sour cabane',
+        style: 'Secoué',
+        ingredients: ['Sortilège', 'citron', 'whiskey', 'blanc d’œuf optionnel'],
+        method: 'Secouer avec glace, filtrer, finir avec une pointe de muscade.',
+      },
+    ],
+  },
+  Havana_Club: {
+    intro:
+      "Havana Club est parfait quand le cocktail doit rester simple : rhum, citron vert, menthe, sucre tenu et beaucoup de froid.",
+    pairings: ['citron vert', 'menthe', 'cola', 'miel', 'ananas frais'],
+    sources: [sourceCatalog.daiquiri, sourceCatalog.mojito, sourceCatalog.cubaLibre],
+    ideas: [
+      {
+        name: 'Daiquiri net',
+        style: 'Classique',
+        ingredients: ['rhum cubain', 'citron vert', 'sucre très fin'],
+        method: 'Dissoudre le sucre, secouer très froid, filtrer en coupe.',
+      },
+      {
+        name: 'Mojito sec',
+        style: 'Highball',
+        ingredients: ['rhum', 'menthe', 'citron vert', 'sucre', 'eau gazeuse'],
+        method: 'Presser doucement la menthe, ajouter glace et bulles sans surcharger.',
+      },
+      {
+        name: 'Cuba libre propre',
+        style: 'Long drink',
+        ingredients: ['rhum', 'cola', 'citron vert', 'glace haute'],
+        method: 'Construire dans un verre haut avec beaucoup de glace et un vrai trait de citron vert.',
+      },
+    ],
+  },
+  Kahlua: {
+    intro:
+      "Kahlúa donne de la profondeur café. Elle est meilleure quand le froid, la vodka ou la crème évitent l’effet sirop.",
+    pairings: ['espresso', 'vodka', 'crème froide', 'cacao amer', 'orange'],
+    sources: [sourceCatalog.espressoMartini, sourceCatalog.blackRussian, sourceCatalog.baileys],
+    ideas: [
+      {
+        name: 'Espresso Martini',
+        style: 'Secoué',
+        ingredients: ['vodka', 'Kahlúa', 'espresso', 'sirop léger'],
+        method: 'Secouer fort pour créer une mousse fine, servir immédiatement.',
+      },
+      {
+        name: 'White Russian court',
+        style: 'Sur glace',
+        ingredients: ['vodka', 'Kahlúa', 'crème froide'],
+        method: 'Construire sur gros glaçon et mélanger lentement pour garder les strates.',
+      },
+      {
+        name: 'Café tonic sombre',
+        style: 'Highball',
+        ingredients: ['Kahlúa', 'espresso refroidi', 'tonic', 'zeste d’orange'],
+        method: 'Verser sur glace, compléter au tonic pour une amertume légère.',
+      },
+    ],
+  },
+  Molinari_Sambuka: {
+    intro:
+      "La sambuca est très aromatique. Elle marche mieux en petites doses, avec café, citron ou glace très froide.",
+    pairings: ['espresso', 'grains de café', 'citron', 'eau gazeuse', 'chocolat noir'],
+    sources: [sourceCatalog.ibaList, sourceCatalog.espressoMartini, sourceCatalog.blackRussian],
+    ideas: [
+      {
+        name: 'Con la mosca',
+        style: 'Rituel',
+        ingredients: ['sambuca', 'trois grains de café'],
+        method: 'Servir très froid, croquer un grain pour casser la douceur anisée.',
+      },
+      {
+        name: 'Anis sour',
+        style: 'Secoué',
+        ingredients: ['sambuca', 'citron jaune', 'eau fraîche', 'sirop minuscule'],
+        method: 'Secouer court et allonger d’un trait d’eau pour ouvrir l’anis.',
+      },
+      {
+        name: 'Espresso anisé',
+        style: 'Café',
+        ingredients: ['espresso', 'sambuca', 'glaçon clair'],
+        method: 'Verser sur glace, remuer, servir comme un digestif de fin de repas.',
+      },
+    ],
+  },
+  Pernod: {
+    intro:
+      "Pernod est une transformation visuelle autant qu’un goût : l’eau fraîche ouvre l’anis et rend le verre plus lent.",
+    pairings: ['eau très fraîche', 'amande', 'menthe', 'olive verte', 'poisson grillé'],
+    sources: [sourceCatalog.sazerac, sourceCatalog.ibaList, sourceCatalog.ginFizz],
+    ideas: [
+      {
+        name: 'Pernod glacé',
+        style: 'Apéritif',
+        ingredients: ['Pernod', 'eau fraîche', 'glaçons à part'],
+        method: 'Allonger lentement pour laisser apparaître le trouble laiteux.',
+      },
+      {
+        name: 'Mauresque fine',
+        style: 'Anisé doux',
+        ingredients: ['Pernod', 'sirop d’orgeat', 'eau fraîche'],
+        method: 'Doser l’orgeat en touche courte pour garder l’anis en premier.',
+      },
+      {
+        name: 'Rinçage Sazerac',
+        style: 'Aromatique',
+        ingredients: ['Pernod', 'whiskey ou cognac', 'sucre', 'bitters'],
+        method: 'Rincer le verre au Pernod avant de servir le cocktail remué.',
+      },
+    ],
+  },
+  Chivas: {
+    intro:
+      "Chivas a une texture douce qui aime les highballs précis, le miel, le gingembre et les recettes remuées.",
+    pairings: ['eau pétillante', 'miel', 'gingembre', 'citron', 'verre haut glacé'],
+    sources: [sourceCatalog.rustyNail, sourceCatalog.whiskeySour, sourceCatalog.oldFashioned],
+    ideas: [
+      {
+        name: 'Scotch highball',
+        style: 'Long drink',
+        ingredients: ['Chivas', 'eau pétillante très froide', 'zeste de citron'],
+        method: 'Construire sur glace haute, remuer une seule fois pour garder les bulles.',
+      },
+      {
+        name: 'Penicillin doux',
+        style: 'Secoué',
+        ingredients: ['Chivas', 'citron', 'miel gingembre', 'trait de whisky fumé optionnel'],
+        method: 'Secouer, servir sur glaçon large, garder le fumé en finition.',
+      },
+      {
+        name: 'Rusty Nail souple',
+        style: 'Remué',
+        ingredients: ['Chivas', 'liqueur de whisky au miel', 'zeste de citron'],
+        method: 'Remuer sur glace, servir bas et très froid.',
+      },
+    ],
+  },
+  Crema_di_Limoncino: {
+    intro:
+      "La crème de citron est faite pour les verres dessert. Elle demande du froid, des bulles ou de l’espresso pour éviter la lourdeur.",
+    pairings: ['prosecco', 'sorbet citron', 'espresso', 'fruits rouges', 'biscuit sec'],
+    sources: [sourceCatalog.lemonDrop, sourceCatalog.ibaList, sourceCatalog.espressoMartini],
+    ideas: [
+      {
+        name: 'Limoncino spritz',
+        style: 'Bulles',
+        ingredients: ['crema di limoncino', 'prosecco', 'eau gazeuse', 'zeste de citron'],
+        method: 'Construire sur glace, remuer doucement, servir avant que la crème ne chauffe.',
+      },
+      {
+        name: 'Sgroppino crème',
+        style: 'Dessert',
+        ingredients: ['sorbet citron', 'vodka', 'crema di limoncino', 'prosecco'],
+        method: 'Fouetter rapidement et servir en petit verre très froid.',
+      },
+      {
+        name: 'Affogato citron',
+        style: 'Café',
+        ingredients: ['glace vanille', 'espresso', 'trait de limoncino'],
+        method: 'Verser l’espresso puis la liqueur, finir avec zeste fin.',
+      },
+    ],
+  },
+  Baileys: {
+    intro:
+      "Baileys est une texture autant qu’un alcool. Il marche très bien avec café, chocolat, glace et vodka neutre.",
+    pairings: ['espresso', 'chocolat noir', 'vodka', 'glace vanille', 'noisette'],
+    sources: [sourceCatalog.baileys, sourceCatalog.irishCoffee, sourceCatalog.espressoMartini],
+    ideas: [
+      {
+        name: 'Irish cream coffee',
+        style: 'Chaud',
+        ingredients: ['café noir', 'Baileys', 'crème légère optionnelle'],
+        method: 'Verser dans une tasse chaude, garder le café assez amer.',
+      },
+      {
+        name: 'White Russian Baileys',
+        style: 'Sur glace',
+        ingredients: ['vodka', 'liqueur de café', 'Baileys'],
+        method: 'Construire sur glace large et remuer doucement pour une texture marbrée.',
+      },
+      {
+        name: 'Espresso crème',
+        style: 'Secoué',
+        ingredients: ['Baileys', 'espresso', 'vodka', 'cacao amer'],
+        method: 'Secouer très froid et poudrer d’un voile de cacao.',
+      },
+    ],
+  },
+  Absolut_Vodka: {
+    intro:
+      "Absolut sert de base claire : elle allonge, refroidit et laisse les agrumes ou les aromates prendre la lumière.",
+    pairings: ['vermouth sec', 'citron', 'espresso', 'tonic', 'concombre'],
+    sources: [sourceCatalog.dryMartini, sourceCatalog.vesper, sourceCatalog.lemonDrop],
+    ideas: [
+      {
+        name: 'Vodka Martini',
+        style: 'Remué',
+        ingredients: ['vodka', 'vermouth sec', 'zeste de citron ou olive'],
+        method: 'Remuer longtemps sur glace et servir dans un verre très froid.',
+      },
+      {
+        name: 'Vesper claire',
+        style: 'Secoué',
+        ingredients: ['gin', 'vodka', 'apéritif blanc', 'zeste de citron'],
+        method: 'Secouer au froid intense et filtrer sans glace.',
+      },
+      {
+        name: 'Lemon Drop net',
+        style: 'Agrume',
+        ingredients: ['vodka', 'triple sec', 'citron', 'sucre fin'],
+        method: 'Secouer et garder le sucre seulement en bordure légère.',
+      },
+    ],
+  },
+  Jagermeister: {
+    intro:
+      "Jägermeister devient plus élégant quand il est froid, allongé, ou utilisé comme bitter épicé dans une recette sombre.",
+    pairings: ['ginger beer', 'citron vert', 'café froid', 'orange amère', 'chocolat'],
+    sources: [sourceCatalog.whiskeySour, sourceCatalog.blackRussian, sourceCatalog.ibaList],
+    ideas: [
+      {
+        name: 'Jäger Mule',
+        style: 'Highball',
+        ingredients: ['Jägermeister', 'ginger beer', 'citron vert', 'glace'],
+        method: 'Construire très froid, finir avec un quartier de citron vert pressé.',
+      },
+      {
+        name: 'Herbal sour',
+        style: 'Secoué',
+        ingredients: ['Jägermeister', 'citron', 'sirop léger', 'blanc d’œuf optionnel'],
+        method: 'Secouer fort pour adoucir les racines et ouvrir l’orange amère.',
+      },
+      {
+        name: 'Cold brew hunter',
+        style: 'Café',
+        ingredients: ['Jägermeister', 'cold brew', 'trait de sirop', 'zeste d’orange'],
+        method: 'Remuer sur glace et servir bas, presque comme un digestif glacé.',
+      },
+    ],
+  },
+  Martel: {
+    intro:
+      "Martell appelle des cocktails nobles : agrume propre, sucre retenu, bitters et un service qui laisse le cognac respirer.",
+    pairings: ['citron jaune', 'triple sec', 'amaretto', 'bitters', 'zeste d’orange'],
+    sources: [sourceCatalog.sidecar, sourceCatalog.sazerac, sourceCatalog.ibaList],
+    ideas: [
+      {
+        name: 'Sidecar Martell',
+        style: 'Classique',
+        ingredients: ['cognac', 'triple sec', 'citron jaune'],
+        method: 'Secouer et servir en coupe, bord sucré très léger si besoin.',
+      },
+      {
+        name: 'Sazerac cognac',
+        style: 'Remué',
+        ingredients: ['cognac', 'sucre', 'bitters Peychaud', 'rinçage anisé'],
+        method: 'Remuer, servir sans glace avec un zeste de citron exprimé.',
+      },
+      {
+        name: 'French connection',
+        style: 'Digestif',
+        ingredients: ['cognac', 'amaretto', 'gros glaçon'],
+        method: 'Construire directement dans le verre et remuer lentement.',
+      },
+    ],
+  },
+  Malibu: {
+    intro:
+      "Malibu assume la coco. L’acidité, l’ananas et la glace pilée sont ses meilleurs garde-fous contre le trop sucré.",
+    pairings: ['ananas', 'citron vert', 'menthe', 'eau de coco', 'glace pilée'],
+    sources: [sourceCatalog.daiquiri, sourceCatalog.cubaLibre, sourceCatalog.ibaList],
+    ideas: [
+      {
+        name: 'Malibu pineapple',
+        style: 'Long drink',
+        ingredients: ['Malibu', 'jus d’ananas', 'citron vert', 'glace'],
+        method: 'Construire sur glace et finir avec un trait de citron vert.',
+      },
+      {
+        name: 'Piña légère',
+        style: 'Tropical',
+        ingredients: ['Malibu', 'rhum blanc', 'ananas', 'lait de coco'],
+        method: 'Secouer ou mixer brièvement, servir avec glace pilée.',
+      },
+      {
+        name: 'Coco Daiquiri',
+        style: 'Secoué',
+        ingredients: ['rhum', 'Malibu', 'citron vert', 'sirop très léger'],
+        method: 'Secouer très froid pour garder la coco nette et l’agrume dominant.',
+      },
+    ],
+  },
+  Ramazzotti: {
+    intro:
+      "Ramazzotti donne une amertume ronde, parfaite pour les spritz sombres, les verres au soda et les twists de Negroni.",
+    pairings: ['orange', 'prosecco', 'soda', 'vermouth rouge', 'chocolat noir'],
+    sources: [sourceCatalog.negroni, sourceCatalog.ibaList, sourceCatalog.cubaLibre],
+    ideas: [
+      {
+        name: 'Amaro spritz',
+        style: 'Apéritif',
+        ingredients: ['Ramazzotti', 'prosecco', 'eau gazeuse', 'orange'],
+        method: 'Construire dans un grand verre à vin avec beaucoup de glace.',
+      },
+      {
+        name: 'Ramazzotti soda',
+        style: 'Long drink',
+        ingredients: ['Ramazzotti', 'soda très froid', 'zeste d’orange'],
+        method: 'Allonger directement, remuer une fois et servir très frais.',
+      },
+      {
+        name: 'Negroni amaro',
+        style: 'Remué',
+        ingredients: ['gin', 'Ramazzotti', 'vermouth rouge', 'zeste d’orange'],
+        method: 'Remuer sur glace, garder un ratio plus doux qu’un Negroni classique.',
+      },
+    ],
+  },
+  Beefeater: {
+    intro:
+      "Beefeater apporte une ligne sèche : genièvre, citron, herbes et amertume. Il structure très bien les cocktails fruités.",
+    pairings: ['tonic sec', 'citron', 'basilic', 'miel', 'mûre'],
+    sources: [sourceCatalog.negroni, sourceCatalog.ginFizz, sourceCatalog.beesKnees],
+    ideas: [
+      {
+        name: 'Gin tonic tendu',
+        style: 'Highball',
+        ingredients: ['Beefeater', 'tonic sec', 'zeste de citron'],
+        method: 'Construire sur glace haute et éviter les garnitures trop sucrées.',
+      },
+      {
+        name: 'Negroni droit',
+        style: 'Remué',
+        ingredients: ['gin', 'bitter rouge', 'vermouth rouge'],
+        method: 'Remuer, servir bas avec une demi-tranche d’orange.',
+      },
+      {
+        name: "Bee's Knees",
+        style: 'Miel',
+        ingredients: ['gin', 'miel', 'citron', 'orange'],
+        method: 'Dissoudre le miel dans les jus, secouer, filtrer en coupe.',
+      },
+    ],
+  },
+  Jameson: {
+    intro:
+      "Jameson est parfait en highball : gingembre, citron vert, café chaud et sours accessibles sans lourdeur fumée.",
+    pairings: ['ginger ale', 'citron vert', 'café chaud', 'citron jaune', 'miel'],
+    sources: [sourceCatalog.jamesonGinger, sourceCatalog.irishCoffee, sourceCatalog.whiskeySour],
+    ideas: [
+      {
+        name: 'Ginger & Lime',
+        style: 'Signature',
+        ingredients: ['Jameson', 'ginger ale', 'citron vert', 'glace'],
+        method: 'Construire dans un verre haut, presser le citron vert en dernier.',
+      },
+      {
+        name: 'Irish Coffee',
+        style: 'Chaud',
+        ingredients: ['Jameson', 'café chaud', 'sucre', 'crème froide'],
+        method: 'Sucrer le café, ajouter le whiskey, faire flotter la crème.',
+      },
+      {
+        name: 'Irish Sour',
+        style: 'Secoué',
+        ingredients: ['Jameson', 'citron', 'sirop', 'blanc d’œuf optionnel'],
+        method: 'Secouer fort, servir sur glace ou en coupe selon l’envie.',
+      },
+    ],
+  },
+  "Jack_Daniel's": {
+    intro:
+      "Jack Daniel's aime les recettes américaines : bitters, citron, cola propre et glace large pour cadrer sa vanille.",
+    pairings: ['cola', 'citron jaune', 'bitters', 'orange', 'ginger ale'],
+    sources: [sourceCatalog.oldFashioned, sourceCatalog.whiskeySour, sourceCatalog.newYorkSour],
+    ideas: [
+      {
+        name: 'Old Fashioned Tennessee',
+        style: 'Remué',
+        ingredients: ["Jack Daniel's", 'sucre', 'bitters', 'orange'],
+        method: 'Dissoudre le sucre, ajouter whiskey et glace, remuer lentement.',
+      },
+      {
+        name: 'Whiskey Sour',
+        style: 'Secoué',
+        ingredients: ["Jack Daniel's", 'citron', 'sirop', 'blanc d’œuf optionnel'],
+        method: 'Secouer avec énergie et servir sur glace avec un zeste.',
+      },
+      {
+        name: 'Lemonade Lynchburg',
+        style: 'Long drink',
+        ingredients: ["Jack Daniel's", 'triple sec', 'citron', 'limonade'],
+        method: 'Construire sur glace haute pour un profil frais et vanillé.',
+      },
+    ],
+  },
+  Curacao: {
+    intro:
+      "Le curaçao est un signal d’orange et de couleur. Il faut le doser court pour garder le cocktail net.",
+    pairings: ['rhum', 'tequila', 'citron vert', 'ananas', 'glace pilée'],
+    sources: [sourceCatalog.margarita, sourceCatalog.daiquiri, sourceCatalog.ibaList],
+    ideas: [
+      {
+        name: 'Margarita bleue',
+        style: 'Coloré',
+        ingredients: ['tequila', 'curaçao', 'citron vert', 'sel fin'],
+        method: 'Secouer et servir sur glace pour une couleur franche mais un goût sec.',
+      },
+      {
+        name: 'Blue Lagoon sec',
+        style: 'Long drink',
+        ingredients: ['vodka', 'curaçao', 'citron', 'eau gazeuse'],
+        method: 'Allonger au soda plutôt qu’à la limonade pour limiter le sucre.',
+      },
+      {
+        name: 'Tiki orange',
+        style: 'Tropical',
+        ingredients: ['rhum', 'curaçao', 'citron vert', 'ananas'],
+        method: 'Secouer avec glace pilée, servir en verre court et parfumé.',
+      },
+    ],
+  },
+};
+
+function getCocktailProfile(profile) {
+  return cocktailProfiles[profile.modelName] ?? {
+    intro:
+      "Une base simple pour explorer la bouteille active en cocktail : un classique, un highball et un service plus libre.",
+    pairings: profile.notes,
+    sources: [sourceCatalog.ibaList],
+    ideas: [
+      {
+        name: `${profile.name} frais`,
+        style: 'Simple',
+        ingredients: [profile.name, 'glace', profile.serve],
+        method: 'Servir très froid et garder un dosage court pour lire la bouteille.',
+      },
+    ],
+  };
+}
+
+const glassMaterialProfiles = {
+  Cointreau: {
+    opacity: 0.96,
+    transmission: 0.42,
+    thickness: 1.05,
+    attenuationDistance: 1.35,
+    attenuationColor: 0xffead2,
+  },
+  Molinari_Sambuka: {
+    opacity: 0.97,
+    transmission: 0.36,
+    thickness: 1.18,
+    attenuationDistance: 1.1,
+    attenuationColor: 0xfff2d8,
+  },
+  Crema_di_Limoncino: {
+    opacity: 0.98,
+    transmission: 0.28,
+    thickness: 1.25,
+    attenuationDistance: 0.9,
+    attenuationColor: 0xffe6a3,
+  },
+  Absolut_Vodka: {
+    opacity: 0.97,
+    transmission: 0.34,
+    thickness: 1.22,
+    attenuationDistance: 1.0,
+    attenuationColor: 0xd8edf6,
+  },
+  Malibu: {
+    opacity: 0.98,
+    transmission: 0.3,
+    thickness: 1.2,
+    attenuationDistance: 1.0,
+    attenuationColor: 0xffedd4,
+  },
+  Curacao: {
+    opacity: 0.96,
+    transmission: 0.38,
+    thickness: 1.15,
+    attenuationDistance: 1.1,
+    attenuationColor: 0x69d8ff,
+  },
+};
+
+const defaultGlassMaterialProfile = {
+  opacity: 0.93,
+  transmission: 0.64,
+  thickness: 0.82,
+  attenuationDistance: 2.2,
+  attenuationColor: 0xfff1de,
+};
+
 const canvas = document.querySelector('#scene');
 const loaderPanel = document.querySelector('#loader');
 const loadPercent = document.querySelector('#loadPercent');
@@ -705,6 +1327,12 @@ const elements = {
   next: document.querySelector('#nextBottle'),
   detailClose: document.querySelector('#detailClose'),
   installButton: document.querySelector('#installButton'),
+  immersiveButton: document.querySelector('#immersiveButton'),
+  cocktailBottleName: document.querySelector('#cocktailBottleName'),
+  cocktailIntro: document.querySelector('#cocktailIntro'),
+  cocktailCards: document.querySelector('#cocktailCards'),
+  cocktailPairings: document.querySelector('#cocktailPairings'),
+  cocktailSources: document.querySelector('#cocktailSources'),
 };
 
 const scene = new THREE.Scene();
@@ -793,6 +1421,7 @@ const bottleObjects = [];
 const pointer = new THREE.Vector2();
 const deviceTilt = new THREE.Vector2();
 const targetDeviceTilt = new THREE.Vector2();
+const motionTilt = new THREE.Vector2();
 const cameraLookTarget = new THREE.Vector3();
 const raycaster = new THREE.Raycaster();
 const rayTarget = new THREE.Vector3(0, 0.25, 0);
@@ -825,6 +1454,13 @@ let isForceSettling = false;
 let deferredInstallPrompt = null;
 let orientationAccessRequested = false;
 let orientationListening = false;
+let motionAccessRequested = false;
+let motionListening = false;
+let lastOrientationAt = 0;
+let lastMotionAt = 0;
+let previousMotionX = 0;
+let lastMotionNavigationAt = 0;
+let immersiveEnabled = false;
 
 const getStep = () => (Math.PI * 2) / Math.max(bottleObjects.length, 1);
 const clamp = (value, min, max) => Math.min(Math.max(value, min), max);
@@ -862,21 +1498,41 @@ function pulseHaptic(kind = 'tick') {
   if (!('vibrate' in navigator)) return;
 
   const now = performance.now();
-  const minGap = kind === 'commit' ? 70 : 38;
+  const minGap = kind === 'commit' ? 70 : 34;
   if (now - lastHapticAt < minGap) return;
 
   lastHapticAt = now;
-  navigator.vibrate(kind === 'commit' ? [10, 18, 10] : 8);
+  const patterns = {
+    tick: [6],
+    commit: [12, 18, 8],
+    soft: [4],
+  };
+  navigator.vibrate(patterns[kind] ?? patterns.tick);
+}
+
+function getScreenAngle() {
+  return window.screen?.orientation?.angle ?? window.orientation ?? 0;
 }
 
 function onDeviceOrientation(event) {
+  if (!immersiveEnabled) return;
   if (event.gamma == null && event.beta == null) return;
 
-  const sideways = clamp(event.gamma ?? 0, -28, 28) / 28;
-  const forward = clamp(((event.beta ?? 45) - 45) / 42, -1, 1);
+  lastOrientationAt = performance.now();
 
-  targetDeviceTilt.x = sideways;
-  targetDeviceTilt.y = forward;
+  const gamma = event.gamma ?? 0;
+  const beta = event.beta ?? 45;
+  const angle = getScreenAngle();
+  let sideways = gamma;
+  let forward = beta - 45;
+
+  if (Math.abs(angle) === 90) {
+    sideways = angle > 0 ? beta - 45 : 45 - beta;
+    forward = angle > 0 ? -gamma : gamma;
+  }
+
+  targetDeviceTilt.x = clamp(sideways / 24, -1, 1);
+  targetDeviceTilt.y = clamp(forward / 34, -1, 1);
 }
 
 function enableDeviceOrientation() {
@@ -886,10 +1542,78 @@ function enableDeviceOrientation() {
   window.addEventListener('deviceorientation', onDeviceOrientation, { passive: true });
 }
 
+function onDeviceMotion(event) {
+  if (!immersiveEnabled) return;
+  const acceleration = event.accelerationIncludingGravity;
+  if (!acceleration) return;
+
+  const now = performance.now();
+  lastMotionAt = now;
+
+  const x = clamp((acceleration.x ?? 0) / 7.5, -1, 1);
+  const y = clamp(((acceleration.y ?? 0) - 2.5) / 7.5, -1, 1);
+
+  if (now - lastOrientationAt > 520) {
+    motionTilt.x = THREE.MathUtils.lerp(motionTilt.x, x, 0.24);
+    motionTilt.y = THREE.MathUtils.lerp(motionTilt.y, y, 0.2);
+    targetDeviceTilt.x = motionTilt.x;
+    targetDeviceTilt.y = motionTilt.y;
+  }
+
+  const rotationRate = event.rotationRate ?? {};
+  const rotationImpulse = ((rotationRate.gamma ?? rotationRate.beta ?? 0) / 130) || 0;
+  const lateralJerk = x - previousMotionX;
+  const gesture = rotationImpulse + lateralJerk * 1.45;
+
+  if (
+    !isDragging &&
+    !isDetailMode() &&
+    Math.abs(gesture) > 0.95 &&
+    now - lastMotionNavigationAt > 850
+  ) {
+    lastMotionNavigationAt = now;
+    moveActive(gesture > 0 ? -1 : 1, { force: false });
+    pulseHaptic('commit');
+  }
+
+  if (isDetailMode() && Math.abs(rotationImpulse) > 0.05) {
+    detailRotation += clamp(rotationImpulse, -0.5, 0.5) * 0.035;
+  }
+
+  previousMotionX = x;
+}
+
+function enableDeviceMotion() {
+  if (motionListening || !('DeviceMotionEvent' in window)) return;
+
+  motionListening = true;
+  window.addEventListener('devicemotion', onDeviceMotion, { passive: true });
+}
+
+function requestDeviceMotionAccess() {
+  if (motionAccessRequested || !('DeviceMotionEvent' in window)) return;
+
+  motionAccessRequested = true;
+  const permissionRequest = window.DeviceMotionEvent.requestPermission;
+
+  if (typeof permissionRequest === 'function') {
+    permissionRequest.call(window.DeviceMotionEvent).then((state) => {
+      if (state === 'granted') enableDeviceMotion();
+    }).catch(() => {});
+    return;
+  }
+
+  enableDeviceMotion();
+}
+
 function requestDeviceOrientationAccess() {
-  if (orientationAccessRequested || !('DeviceOrientationEvent' in window)) return;
+  if (orientationAccessRequested) return;
 
   orientationAccessRequested = true;
+  requestDeviceMotionAccess();
+
+  if (!('DeviceOrientationEvent' in window)) return;
+
   const permissionRequest = window.DeviceOrientationEvent.requestPermission;
 
   if (typeof permissionRequest === 'function') {
@@ -902,13 +1626,51 @@ function requestDeviceOrientationAccess() {
   enableDeviceOrientation();
 }
 
+function updateImmersiveButton() {
+  if (!elements.immersiveButton) return;
+
+  elements.immersiveButton.classList.toggle('is-active', immersiveEnabled);
+  elements.immersiveButton.setAttribute('aria-pressed', immersiveEnabled ? 'true' : 'false');
+  elements.immersiveButton.textContent = immersiveEnabled ? 'Immersion active' : 'Immersion';
+}
+
+function setImmersiveMode(enabled) {
+  immersiveEnabled = enabled;
+  stage.classList.toggle('is-immersive', immersiveEnabled);
+  document.body.classList.toggle('is-immersive', immersiveEnabled);
+  updateImmersiveButton();
+}
+
+function toggleImmersiveMode() {
+  setImmersiveMode(!immersiveEnabled);
+
+  if (immersiveEnabled) {
+    requestDeviceOrientationAccess();
+    pulseHaptic('commit');
+    return;
+  }
+
+  targetDeviceTilt.set(0, 0);
+  motionTilt.set(0, 0);
+  previousMotionX = 0;
+  pulseHaptic('soft');
+}
+
 function updateDeviceTilt(delta) {
-  deviceTilt.x = THREE.MathUtils.damp(deviceTilt.x, targetDeviceTilt.x, 4.8, delta);
-  deviceTilt.y = THREE.MathUtils.damp(deviceTilt.y, targetDeviceTilt.y, 4.8, delta);
+  if (!immersiveEnabled) {
+    targetDeviceTilt.set(0, 0);
+  } else if (performance.now() - Math.max(lastOrientationAt, lastMotionAt) > 1600) {
+    const now = performance.now() * 0.001;
+    targetDeviceTilt.x = Math.sin(now * 0.72) * 0.12;
+    targetDeviceTilt.y = Math.cos(now * 0.84) * 0.08;
+  }
+
+  deviceTilt.x = THREE.MathUtils.damp(deviceTilt.x, targetDeviceTilt.x, immersiveEnabled ? 6.2 : 4.2, delta);
+  deviceTilt.y = THREE.MathUtils.damp(deviceTilt.y, targetDeviceTilt.y, immersiveEnabled ? 6.2 : 4.2, delta);
 }
 
 function getBottleFacingRotation(holder, index) {
-  const parallaxStrength = isDetailMode() ? 0.26 : index === visualIndex ? 0.16 : 0.055;
+  const parallaxStrength = immersiveEnabled ? (isDetailMode() ? 0.48 : index === visualIndex ? 0.34 : 0.12) : 0;
   return (holder.userData.frontRotation ?? 0) + deviceTilt.x * parallaxStrength;
 }
 
@@ -946,6 +1708,64 @@ function updateDots() {
   });
 }
 
+function appendTextList(parent, items) {
+  parent.replaceChildren();
+
+  items.forEach((text) => {
+    const item = document.createElement('li');
+    item.textContent = text;
+    parent.append(item);
+  });
+}
+
+function appendSourceList(parent, sources) {
+  parent.replaceChildren();
+
+  sources.forEach((source) => {
+    const item = document.createElement('li');
+    const link = document.createElement('a');
+    link.href = source.url;
+    link.target = '_blank';
+    link.rel = 'noreferrer';
+    link.textContent = source.label;
+    item.append(link);
+    parent.append(item);
+  });
+}
+
+function renderCocktailCard(idea) {
+  const card = document.createElement('article');
+  card.className = 'cocktail-card';
+
+  const style = document.createElement('p');
+  style.className = 'cocktail-card-style';
+  style.textContent = idea.style;
+
+  const title = document.createElement('h3');
+  title.textContent = idea.name;
+
+  const ingredients = document.createElement('ul');
+  ingredients.className = 'cocktail-ingredients';
+  appendTextList(ingredients, idea.ingredients);
+
+  const method = document.createElement('p');
+  method.className = 'cocktail-method';
+  method.textContent = idea.method;
+
+  card.append(style, title, ingredients, method);
+  return card;
+}
+
+function updateCocktailSection(profile) {
+  const cocktail = getCocktailProfile(profile);
+
+  elements.cocktailBottleName.textContent = profile.name;
+  elements.cocktailIntro.textContent = cocktail.intro;
+  elements.cocktailCards.replaceChildren(...cocktail.ideas.map(renderCocktailCard));
+  appendTextList(elements.cocktailPairings, cocktail.pairings);
+  appendSourceList(elements.cocktailSources, cocktail.sources);
+}
+
 function updateText(profile) {
   const detail = profile.detail ?? {};
 
@@ -978,6 +1798,7 @@ function updateText(profile) {
     elements.noteList.append(item);
   });
 
+  updateCocktailSection(profile);
   updateDots();
 }
 
@@ -992,6 +1813,7 @@ function setActive(index, options = {}) {
   if (!bottleObjects.length) return;
   const previousTargetIndex = targetIndex;
   targetIndex = wrapIndex(index);
+  const targetChanged = previousTargetIndex !== targetIndex;
   targetRotation = resolveShortestTarget(targetIndex);
   const movedSteps = Math.abs(getIndexDelta(previousTargetIndex, targetIndex));
   const force = options.force || movedSteps > 1;
@@ -1002,6 +1824,8 @@ function setActive(index, options = {}) {
     updateText(bottleProfiles[activeIndex]);
     if (!options.silent) pulseHaptic('commit');
     isForceSettling = false;
+  } else if (targetChanged && !options.silent) {
+    pulseHaptic('tick');
   }
 
   setSettlingState(force);
@@ -1073,13 +1897,38 @@ function pickBottle(clientX, clientY) {
   return null;
 }
 
-function cloneMaterialTree(object) {
+function tuneBottleMaterial(material, profile) {
+  if (material.name !== 'Atlas') return;
+
+  const tuning = glassMaterialProfiles[profile.modelName] ?? defaultGlassMaterialProfile;
+
+  material.transparent = true;
+  material.opacity = tuning.opacity;
+  material.depthWrite = false;
+  material.alphaTest = 0.015;
+  material.envMapIntensity = 1;
+
+  if ('transmission' in material) {
+    material.transmission = tuning.transmission;
+    material.thickness = tuning.thickness;
+    material.ior = material.ior || 1.45;
+    material.attenuationDistance = tuning.attenuationDistance;
+    material.attenuationColor = new THREE.Color(tuning.attenuationColor);
+  }
+
+  if ('roughness' in material) {
+    material.roughness = Math.max(material.roughness ?? 0, 0.34);
+  }
+}
+
+function cloneMaterialTree(object, profile) {
   object.traverse((child) => {
     if (!child.isMesh) return;
 
     child.castShadow = true;
     child.receiveShadow = true;
     child.frustumCulled = false;
+    child.renderOrder = 2;
 
     if (Array.isArray(child.material)) {
       child.material = child.material.map((material) => material.clone());
@@ -1096,6 +1945,11 @@ function cloneMaterialTree(object) {
         material.map.colorSpace = THREE.SRGBColorSpace;
         material.map.anisotropy = renderer.capabilities.getMaxAnisotropy();
       }
+      if (material.transparent) {
+        material.depthWrite = false;
+      }
+      tuneBottleMaterial(material, profile);
+      material.needsUpdate = true;
     });
   });
 }
@@ -1105,7 +1959,7 @@ function makeBottleHolder(sourceObject, profile) {
   const matrix = sourceObject.matrixWorld.clone();
   const sourcePosition = sourceObject.getWorldPosition(new THREE.Vector3());
   matrix.decompose(clone.position, clone.quaternion, clone.scale);
-  cloneMaterialTree(clone);
+  cloneMaterialTree(clone, profile);
 
   const spin = new THREE.Group();
   spin.add(clone);
@@ -1191,6 +2045,19 @@ function updateSceneMood(delta) {
   keyLight.intensity = THREE.MathUtils.damp(keyLight.intensity, detail ? 5.2 : 4.5, 4.6, delta);
   rimLight.intensity = THREE.MathUtils.damp(rimLight.intensity, detail ? 1.35 : 2.2, 4.6, delta);
 
+  const immersiveStrength = immersiveEnabled ? 1 : 0;
+  const keyTargetX = -5 + deviceTilt.x * (detail ? 1.4 : 2.1) * immersiveStrength;
+  const keyTargetY = 8 + deviceTilt.y * (detail ? 0.9 : 1.2) * immersiveStrength;
+  const rimTargetX = 6 - deviceTilt.x * (detail ? 1.5 : 2.8) * immersiveStrength;
+  const rimTargetY = 4 + deviceTilt.y * 1.1 * immersiveStrength;
+
+  keyLight.position.x = THREE.MathUtils.damp(keyLight.position.x, keyTargetX, 4.2, delta);
+  keyLight.position.y = THREE.MathUtils.damp(keyLight.position.y, keyTargetY, 4.2, delta);
+  rimLight.position.x = THREE.MathUtils.damp(rimLight.position.x, rimTargetX, 4.2, delta);
+  rimLight.position.y = THREE.MathUtils.damp(rimLight.position.y, rimTargetY, 4.2, delta);
+  warmEdge.position.y = THREE.MathUtils.damp(warmEdge.position.y, 2 + deviceTilt.y * 0.6 * immersiveStrength, 4.2, delta);
+  warmEdge.position.z = THREE.MathUtils.damp(warmEdge.position.z, 5.5 - Math.abs(deviceTilt.x) * 0.7 * immersiveStrength, 4.2, delta);
+
   floor.visible = !detail;
   ringMesh.visible = !detail;
   innerRing.visible = !detail;
@@ -1199,7 +2066,10 @@ function updateSceneMood(delta) {
 
 function updateDetailBottlePosition(delta) {
   const mobile = window.innerWidth < 760;
-  const targetScaleMultiplier = mobile ? 1.25 : 1.32;
+  const compactMobile = window.innerWidth < 560 || window.innerHeight < 720;
+  const targetScaleMultiplier = mobile ? (compactMobile ? 0.9 : 1) : 1.32;
+  const time = performance.now() * 0.001;
+  const immersiveStrength = immersiveEnabled ? 1 : 0;
 
   bottleObjects.forEach((holder, index) => {
     if (index !== activeIndex) {
@@ -1208,7 +2078,13 @@ function updateDetailBottlePosition(delta) {
     }
 
     holder.visible = true;
-    holder.position.set(0, mobile ? -0.18 : -0.08, 0);
+    const floatY = Math.sin(time * 1.18 + holder.userData.seed) * 0.025 * immersiveStrength;
+    const targetX = deviceTilt.x * (mobile ? 0.22 : 0.16) * immersiveStrength;
+    const targetY = (mobile ? (compactMobile ? 0.74 : 0.58) : -0.08) + deviceTilt.y * 0.1 * immersiveStrength + floatY;
+
+    holder.position.x = THREE.MathUtils.damp(holder.position.x, targetX, 5.6, delta);
+    holder.position.y = THREE.MathUtils.damp(holder.position.y, targetY, 5.6, delta);
+    holder.position.z = THREE.MathUtils.damp(holder.position.z, 0, 5.6, delta);
     holder.scale.setScalar(
       THREE.MathUtils.damp(holder.scale.x, holder.userData.baseScale * targetScaleMultiplier, 7.2, delta),
     );
@@ -1219,10 +2095,16 @@ function updateDetailBottlePosition(delta) {
       9,
       delta,
     );
+    holder.userData.spin.rotation.z = THREE.MathUtils.damp(
+      holder.userData.spin.rotation.z,
+      (-deviceTilt.x * 0.06 + Math.sin(time * 0.9 + holder.userData.seed) * 0.014) * immersiveStrength,
+      5.4,
+      delta,
+    );
   });
 
   warmEdge.color.set(bottleProfiles[activeIndex].accent);
-  warmEdge.position.x = THREE.MathUtils.damp(warmEdge.position.x, 0, 4, delta);
+  warmEdge.position.x = THREE.MathUtils.damp(warmEdge.position.x, deviceTilt.x * 0.75 * immersiveStrength, 4, delta);
 }
 
 function updateBottlePositions(delta) {
@@ -1235,6 +2117,8 @@ function updateBottlePositions(delta) {
 
   const step = getStep();
   const radius = window.innerWidth < 760 ? 4.4 : 6.45;
+  const time = performance.now() * 0.001;
+  const immersiveStrength = immersiveEnabled ? 1 : 0;
   currentRotation = THREE.MathUtils.damp(currentRotation, targetRotation + dragOffset, 8.8, delta);
   syncVisualBottleToRotation(step);
   commitSettledBottle();
@@ -1246,8 +2130,11 @@ function updateBottlePositions(delta) {
     const yLift = Math.sin(frontness * Math.PI) * 0.16;
     const depthScale = THREE.MathUtils.lerp(0.54, 1.16, frontness);
     const activeBoost = index === visualIndex ? 1.12 : 1;
+    const floatY = Math.sin(time * 1.1 + holder.userData.seed) * frontness * 0.04 * immersiveStrength;
+    const sensorX = deviceTilt.x * frontness * (index === visualIndex ? 0.34 : 0.18) * immersiveStrength;
+    const sensorY = deviceTilt.y * frontness * 0.12 * immersiveStrength;
 
-    holder.position.set(Math.sin(angle) * radius, -0.12 + yLift, Math.cos(angle) * radius * 0.48);
+    holder.position.set(Math.sin(angle) * radius + sensorX, -0.12 + yLift + sensorY + floatY, Math.cos(angle) * radius * 0.48);
     holder.scale.setScalar(holder.userData.baseScale * depthScale * activeBoost);
     holder.visible = frontness > 0.02;
     holder.lookAt(camera.position.x, holder.position.y + 0.35, camera.position.z);
@@ -1257,12 +2144,18 @@ function updateBottlePositions(delta) {
       8.4,
       delta,
     );
+    holder.userData.spin.rotation.z = THREE.MathUtils.damp(
+      holder.userData.spin.rotation.z,
+      -deviceTilt.x * frontness * 0.045 * immersiveStrength,
+      5.2,
+      delta,
+    );
   });
 
   const active = bottleObjects[visualIndex];
   if (active) {
     warmEdge.color.set(bottleProfiles[visualIndex].accent);
-    warmEdge.position.x = THREE.MathUtils.damp(warmEdge.position.x, active.position.x * 0.28, 4, delta);
+    warmEdge.position.x = THREE.MathUtils.damp(warmEdge.position.x, active.position.x * 0.28 + deviceTilt.x * 0.7 * immersiveStrength, 4, delta);
   }
 
   ringMesh.rotation.z += delta * 0.035;
@@ -1271,28 +2164,29 @@ function updateBottlePositions(delta) {
 
 function updateCamera(delta) {
   const mobile = window.innerWidth < 760;
+  const compactMobile = window.innerWidth < 560 || window.innerHeight < 720;
 
   if (isDetailMode()) {
-    const targetY = mobile ? 1.55 : 2.02;
-    const targetZ = mobile ? 8.7 : 8.2;
-    const targetX = deviceTilt.x * (mobile ? 0.52 : 0.18);
+    const targetY = mobile ? (compactMobile ? 1.9 : 1.76) : 2.02;
+    const targetZ = mobile ? (compactMobile ? 10.9 : 10.2) : 8.2;
+    const targetX = deviceTilt.x * (mobile ? 0.92 : 0.28);
 
     camera.position.x = THREE.MathUtils.damp(camera.position.x, targetX, 4.4, delta);
-    camera.position.y = THREE.MathUtils.damp(camera.position.y, targetY + deviceTilt.y * 0.14, 4.4, delta);
+    camera.position.y = THREE.MathUtils.damp(camera.position.y, targetY + deviceTilt.y * 0.38, 4.4, delta);
     camera.position.z = THREE.MathUtils.damp(camera.position.z, targetZ, 4.4, delta);
-    cameraLookTarget.set(deviceTilt.x * 0.16, mobile ? 0.12 : 0.25, 0);
+    cameraLookTarget.set(deviceTilt.x * 0.34, (mobile ? 0.72 : 0.25) + deviceTilt.y * 0.2, 0);
     camera.lookAt(cameraLookTarget);
     return;
   }
 
-  const targetX = pointer.x * (mobile ? 0.25 : 0.58) + deviceTilt.x * (mobile ? 0.72 : 0.2);
-  const targetY = (mobile ? 1.9 : 2.3) + pointer.y * 0.28 + deviceTilt.y * 0.16;
+  const targetX = pointer.x * (mobile ? 0.25 : 0.58) + deviceTilt.x * (mobile ? 1.18 : 0.3);
+  const targetY = (mobile ? 1.9 : 2.3) + pointer.y * 0.28 + deviceTilt.y * (mobile ? 0.42 : 0.22);
   const targetZ = mobile ? 12.2 : 13.5;
 
   camera.position.x = THREE.MathUtils.damp(camera.position.x, targetX, 3.8, delta);
   camera.position.y = THREE.MathUtils.damp(camera.position.y, targetY, 3.8, delta);
   camera.position.z = THREE.MathUtils.damp(camera.position.z, targetZ, 3.8, delta);
-  cameraLookTarget.set(deviceTilt.x * 0.22, 0.25 + deviceTilt.y * 0.08, 0);
+  cameraLookTarget.set(deviceTilt.x * (mobile ? 0.42 : 0.26), 0.25 + deviceTilt.y * 0.2, 0);
   camera.lookAt(cameraLookTarget);
 }
 
@@ -1317,7 +2211,7 @@ function animate() {
 function onResize() {
   const { innerWidth, innerHeight } = window;
   camera.aspect = innerWidth / innerHeight;
-  camera.fov = innerWidth < 760 ? 42 : 34;
+  camera.fov = innerWidth < 560 ? 46 : innerWidth < 760 ? 42 : 34;
   camera.updateProjectionMatrix();
   renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.4));
   renderer.setSize(innerWidth, innerHeight);
@@ -1366,7 +2260,6 @@ function onPointerMove(event) {
 function onPointerDown(event) {
   if (event.button !== 0 || event.target !== canvas) return;
 
-  requestDeviceOrientationAccess();
   isDragging = true;
   dragStartX = event.clientX;
   dragStartY = event.clientY;
@@ -1411,17 +2304,53 @@ function onPointerUp(event) {
   }
 }
 
+function getProjectedBottleCenter() {
+  const holder = bottleObjects[isDetailMode() ? activeIndex : visualIndex];
+  if (!holder) return null;
+
+  holder.updateWorldMatrix(true, false);
+  const center = holder.getWorldPosition(new THREE.Vector3());
+  center.project(camera);
+
+  return {
+    x: (center.x * 0.5 + 0.5) * window.innerWidth,
+    y: (-center.y * 0.5 + 0.5) * window.innerHeight,
+  };
+}
+
+function isWheelNearBottle(event) {
+  const rect = canvas.getBoundingClientRect();
+  const localX = event.clientX - rect.left;
+  const localY = event.clientY - rect.top;
+  const projected = getProjectedBottleCenter();
+  const mobile = window.innerWidth < 760;
+  const detail = isDetailMode();
+  const centerX = projected ? projected.x - rect.left : rect.width * 0.5;
+  const centerY = projected ? projected.y - rect.top : rect.height * (detail ? 0.5 : 0.56);
+  const radiusX = clamp(rect.width * (detail ? (mobile ? 0.34 : 0.24) : (mobile ? 0.36 : 0.26)), 110, mobile ? 210 : 300);
+  const radiusY = clamp(rect.height * (detail ? (mobile ? 0.34 : 0.38) : (mobile ? 0.42 : 0.46)), 170, mobile ? 330 : 410);
+  const normalizedX = (localX - centerX) / radiusX;
+  const normalizedY = (localY - centerY) / radiusY;
+
+  return normalizedX * normalizedX + normalizedY * normalizedY <= 1;
+}
+
 function onWheel(event) {
   const intent = Math.abs(event.deltaX) > Math.abs(event.deltaY) ? event.deltaX : event.deltaY;
 
+  if (!isWheelNearBottle(event)) {
+    wheelRemainder = 0;
+    return;
+  }
+
+  event.preventDefault();
+
   if (isDetailMode()) {
-    event.preventDefault();
     if (Math.abs(intent) < 1) return;
     detailRotation += intent * 0.0028;
     return;
   }
 
-  event.preventDefault();
   const now = performance.now();
   if (now - lastWheelAt > 180) wheelRemainder = 0;
   lastWheelAt = now;
@@ -1472,7 +2401,6 @@ function updateInstallButton() {
 }
 
 async function onInstallClick() {
-  requestDeviceOrientationAccess();
   if (!deferredInstallPrompt) return;
 
   deferredInstallPrompt.prompt();
@@ -1502,6 +2430,14 @@ function registerInstallFlow() {
 function registerServiceWorker() {
   if (!('serviceWorker' in navigator) || !window.isSecureContext) return;
 
+  if (import.meta.env.DEV) {
+    const registrationsPromise = navigator.serviceWorker.getRegistrations?.();
+    registrationsPromise?.then((registrations) => {
+      registrations.forEach((registration) => registration.unregister());
+    }).catch(() => {});
+    return;
+  }
+
   window.addEventListener('load', () => {
     navigator.serviceWorker.register('/sw.js').catch(() => {});
   });
@@ -1520,6 +2456,7 @@ function bindEvents() {
   elements.next.addEventListener('click', () => moveActive(1));
   elements.detailClose.addEventListener('click', exitDetail);
   elements.installButton?.addEventListener('click', onInstallClick);
+  elements.immersiveButton?.addEventListener('click', toggleImmersiveMode);
 }
 
 function hideLoader() {
@@ -1540,6 +2477,8 @@ function showLoadError(error) {
 registerInstallFlow();
 registerServiceWorker();
 bindEvents();
+onResize();
+updateImmersiveButton();
 buildDots();
 updateText(bottleProfiles[0]);
 animate();

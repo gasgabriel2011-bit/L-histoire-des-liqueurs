@@ -3,8 +3,8 @@ const CORE_ASSETS = [
   '/',
   '/index.html',
   '/favicon.jpeg',
-  '/icon-192.jpg',
-  '/icon-512.jpg',
+  '/icon-192.png',
+  '/icon-512.png',
   '/20_liquor_bottles.glb',
   '/manifest.webmanifest',
 ];
