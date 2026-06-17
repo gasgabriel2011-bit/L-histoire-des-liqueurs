@@ -1279,6 +1279,16 @@ const glassMaterialProfiles = {
     attenuationDistance: 1.0,
     attenuationColor: 0xffedd4,
   },
+  Beefeater: {
+    opacity: 1,
+    transmission: 0.12,
+    thickness: 0.35,
+    attenuationDistance: 0.75,
+    attenuationColor: 0xf8d7c9,
+    depthWrite: true,
+    side: THREE.FrontSide,
+    alphaTest: 0.04,
+  },
   Curacao: {
     opacity: 0.96,
     transmission: 0.38,
@@ -1904,8 +1914,9 @@ function tuneBottleMaterial(material, profile) {
 
   material.transparent = true;
   material.opacity = tuning.opacity;
-  material.depthWrite = false;
-  material.alphaTest = 0.015;
+  material.depthWrite = tuning.depthWrite ?? false;
+  material.alphaTest = tuning.alphaTest ?? 0.015;
+  material.side = tuning.side ?? material.side;
   material.envMapIntensity = 1;
 
   if ('transmission' in material) {
@@ -1919,6 +1930,16 @@ function tuneBottleMaterial(material, profile) {
   if ('roughness' in material) {
     material.roughness = Math.max(material.roughness ?? 0, 0.34);
   }
+}
+
+function tuneLabelMaterial(material, profile) {
+  if (profile.modelName !== 'Beefeater' || material.name !== 'Sprites') return;
+
+  material.side = THREE.FrontSide;
+  material.transparent = true;
+  material.opacity = 1;
+  material.depthWrite = true;
+  material.alphaTest = 0.08;
 }
 
 function cloneMaterialTree(object, profile) {
@@ -1949,6 +1970,7 @@ function cloneMaterialTree(object, profile) {
         material.depthWrite = false;
       }
       tuneBottleMaterial(material, profile);
+      tuneLabelMaterial(material, profile);
       material.needsUpdate = true;
     });
   });
@@ -2260,6 +2282,7 @@ function onPointerMove(event) {
 function onPointerDown(event) {
   if (event.button !== 0 || event.target !== canvas) return;
 
+  event.preventDefault();
   isDragging = true;
   dragStartX = event.clientX;
   dragStartY = event.clientY;
